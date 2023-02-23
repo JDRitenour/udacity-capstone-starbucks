@@ -5,9 +5,9 @@
 ### Project Definition
 Anyone who knows me would tell you that I can always be found with a Starbucks coffee. My drink, a grande latte with two raw sugars, is an essential part of my morning, afternoon, sometime evening, routine. Therefore, I jumped at the chance to dive into some Starbucks data. 
 
-The data provided by Starbucks consists of three json files: portfolio, profile, transcript. The portfolio dataset consist of the promos that are offered to customers. The profile dataset contains demographic information for each of the reward members. Finally, the transcript dataset consists of every instance that a reward member received, viewed, and completed a promo offer, as well as each transaction made by a reward member. 
+The data provided by Starbucks consists of three json files: portfolio, profile, transcript. The portfolio dataset consists of the promos that are offered to customers. The profile dataset contains demographic information for each of the reward members. Finally, the transcript dataset consists of every instance that a reward member received, viewed, and completed a promo offer, as well as each transaction made by a reward member. 
 
-Using the data provided by Starbucks, I attempted to build a model to predict if a promo would successfully sway a reward member to spend more  than their average transaction amount to complete a promo. I will be using the accuracy metric to determine if my model is successful.
+Using the data provided by Starbucks, I attempted to build a model to predict if a promo would successfully sway a reward member to spend more than their average transaction amount to complete a promo. I will be using the accuracy metric to determine if my model is successful.
 
 ### Exploratory Data Analysis
 
@@ -45,7 +45,7 @@ Finally, most reward members earn less than $80,000 per year (see figure 5).
 figure 5 - Income Histogram
 </p>
 
-The last data set to explore is the transaction dataset. This dataset is an event log and tracks transactions, offers received, offers viewed, and offers completed. A majority of events in this log are transactions (see figure 6). 
+The last data set to explore is the transaction dataset. This dataset is an event log and tracks transactions, offers received, offers viewed, and offers completed. Most of the events in this log are transactions (see figure 6).
 
 <p align="center">
 <img width="428" alt="figure 6" src="https://user-images.githubusercontent.com/78283026/220494740-aea67277-9e0d-4735-a2b9-3647998f9c82.png"><br />
@@ -81,14 +81,14 @@ figure 9 - promo dataframe
 
 The next step is to merge the profile dataset, the portfolio dataset, and the newly created avg transactions dataset to the new promo dataset. Before I do this, however, I dropped the age datapoint from the profile dataframe since it is unreliable as discussed above. I also dropped any profiles where gender is null (this consequently also removed all null values from the income column) since nulls were a relatively small portion of members. 
 
-The last step, before the model can be created, is to create a column that indicates if the promo was successful called promo_worked. For the purpose of this analysis, a promo is considered to have “worked” if an offer is viewed, completed, and the offer had a difficulty (how much needed to be spent to receive the reward) that was greater than the members average transaction amount.
+The last step, before the model can be created, is to create a column that indicates if the promo was successful called promo_worked. For this analysis, a promo is considered to have “worked” if an offer is viewed, completed, and the offer had a difficulty (how much needed to be spent to receive the reward) that was greater than the members average transaction amount.
 
-I divided my data into two datasets. A training set and a testing set. This allowed me to train my models on 80% of the data and reserve 20% of the test to test the models predictions. 
+I divided my data into two datasets. A training set and a testing set. This allowed me to train my models on 80% of the data and reserve 20% of the test to test the model’s predictions. 
 
-For the model, I decided to run a basic decision tree classifier from the scikit-learn. I used utilzied cross validation and tuning parameters to determine the optimal max depth of the decision tree. After fitting my model, I used a test subset of my data to gauge the models performance. The model performed with an accuracy score of 1 (i.e. 100%) when its predictions were compared to the test data.
+For the model, I decided to run a basic decision tree classifier from the scikit-learn. I used cross validation and tuning parameters to determine the optimal max depth of the decision tree. After fitting my model, I used a test subset of my data to gauge the model’s performance. The model performed with an accuracy score of 1 (i.e., 100%) when its predictions were compared to the test data.
 
 ### Results
-The basic decision tree model perfomred with an accuracy score of 1. However, accuracy is not the best metric to evaluate this model. This is because the test dataset contain more instance where the promo did not work versus did work (18224 vs. 2315). Due to this disparity, F1 score is a better metric than accurary since F1 score uses precision and recall to accomodate for unbalanced options. The F1 score for this model was also 1 (see figure 13 below). This means that we are able to accurately predict when a promo would get a reward member to spend more than their average transaction. 
+The basic decision tree model performed with an accuracy score of 1. However, accuracy is not the best metric to evaluate this model. This is because the test dataset contains more instance where the promo did not work versus did work (18224 vs. 2315). Due to this disparity, F1 score is a better metric than accuracy since the F1 score uses precision and recall to accommodate unbalanced options. The F1 score for this model was also 1 (see figure 13 below). This means that we can accurately predict when a promo would get a reward member to spend more than their average transaction.
 
 <p align="center">
 <img width="384" alt="figure 13" src="https://user-images.githubusercontent.com/78283026/220931802-8f8ea9ad-86a2-4d42-9a5d-2ffc708085d5.png"><br />
@@ -111,7 +111,7 @@ When the dataset is filtered for only records where the promo was successful, ho
 figure 11 - promo-worked mean and avg transaction histogram
 </p>
 
-The difference in the mean of the average transactions indicates that a promo is more effective on consumers who on average spend less. This is further supported when looking at the distribution of difficulty (how much needed to be spent in order to complete the offer) with most being willing to spend $10 or less but only a small portion spending $20 to claim a reward (see figure 12).
+The difference in the mean of the average transactions indicates that a promo is more effective on consumers who on average spend less. This is further supported when looking at the distribution of difficulty (how much needed to be spent to complete the offer) with most being willing to spend $10 or less but only a small portion spending $20 to claim a reward (see figure 12).
 
 <p align="center">
 <img width="600" alt="figure 12" src="https://user-images.githubusercontent.com/78283026/220498618-a82f6a81-b3fe-4e9c-9003-2d4aecfc54f5.png"><br />
@@ -122,7 +122,7 @@ When taken together, it becomes clear that members who on average spent less per
 
 ### Conclusion
 
-In the end, we were able to pull out characteristics from these dataset to determine if a promotional offer is likely to sway a reward member into spending more than they typically do on average. Promotional offers are most effective on members who average spending less than $10 per transaction.
+In the end, we were able to pull out characteristics from these datasets to determine if a promotional offer is likely to sway a reward member into spending more than they typically do on average. Promotional offers are most effective on members who average spending less than $10 per transaction.
 
 Further enhancements to this analysis can be made in further research efforts. For example, further preprocessing of the data prior to building the model may be required to compensate for the overfitting seen in this experiment. Also, other models can be introduced to see if they perform better than the decision tree model used in this experiment.
 
