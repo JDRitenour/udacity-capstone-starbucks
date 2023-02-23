@@ -14,7 +14,7 @@ Using the data provided by Starbucks, I attempted to build a model to predict if
 The portfolio dataset consists of ten records. Each record corresponds with a promo that a reward member can receive. As can be seen in Figure 1 below, the portfolio dataset contains information regarding the channels used to inform the reward member of the promo, how much needed to be spent to complete the promo, how much each reward was worth, and more.
 
 <p align="center">
-<img width="864" alt="figure 1" src="https://user-images.githubusercontent.com/78283026/220493836-37a9a4dd-f548-4e5b-bc78-126a3baec55f.png"></br>
+<img width="864" alt="figure 1" src="https://user-images.githubusercontent.com/78283026/220493836-37a9a4dd-f548-4e5b-bc78-126a3baec55f.png"><br />
 figure 1 - portfolio dataset
 </p>
 
@@ -88,7 +88,12 @@ I divided my data into two datasets. A training set and a testing set. This allo
 For the model, I decided to run a basic decision tree classifier from the scikit-learn. I used utilzied cross validation and tuning parameters to determine the optimal max depth of the decision tree. After fitting my model, I used a test subset of my data to gauge the models performance. The model performed with an accuracy score of 1 (i.e. 100%) when its predictions were compared to the test data.
 
 ### Results
-The basic decision tree model perfomred with an accuracy score of 1. However, accuracy is not the best metric to evaluate this model. This is because the test dataset contain more instance where the promo did not work versus did work (18224 vs. 2315). Due to this disparity, F1 score is a better metric than accurary since F1 score uses precision and recall to accomodate for unbalanced options. The F1 score for this model was also 1. This means that we are able to accurately predict when a promo would get a reward member to spend more than their average transaction. 
+The basic decision tree model perfomred with an accuracy score of 1. However, accuracy is not the best metric to evaluate this model. This is because the test dataset contain more instance where the promo did not work versus did work (18224 vs. 2315). Due to this disparity, F1 score is a better metric than accurary since F1 score uses precision and recall to accomodate for unbalanced options. The F1 score for this model was also 1 (see figure 13 below). This means that we are able to accurately predict when a promo would get a reward member to spend more than their average transaction. 
+
+<p align="center">
+<img width="384" alt="figure 13" src="https://user-images.githubusercontent.com/78283026/220931802-8f8ea9ad-86a2-4d42-9a5d-2ffc708085d5.png"><br />
+figure 13 - model comparison
+</p>
 
 The decision tree model I was still able to glean some insight by taking a deeper dive into the records where it was determined that the promo was successful in getting the member to spend more than they do on average.
 
