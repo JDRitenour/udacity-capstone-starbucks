@@ -10,7 +10,7 @@
 
 ## Installation <a name="installation"></a>
 
-All required packages to run code are included in standard distribution of python by Anaconda. No further packages are required.
+This project requires the sklearn package.
 
 ## Project Goals<a name="goals"></a>
 
