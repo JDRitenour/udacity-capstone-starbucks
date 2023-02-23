@@ -21,34 +21,34 @@ figure 1 - portfolio dataset
 The profile dataset contains demographic information for each of the rewards members. Upon exploring this dataset, we can make a couple of observations about this group of rewards members. For example, we can see that a majority of reward members are between the ages of 40 and 80 (see figure 2). However, there appears to be a large group of reward members that are between 100 and 120. Since it is improbable that such a large portion of the rewards members are almost 120, it is safe to assume that the age metric is not reliable.
 
 <p align="center">
-<img width="421" alt="figure 2" src="https://user-images.githubusercontent.com/78283026/220494169-1e2a0537-8b59-4530-bcba-8dbda948a4af.png"></br>
+<img width="421" alt="figure 2" src="https://user-images.githubusercontent.com/78283026/220494169-1e2a0537-8b59-4530-bcba-8dbda948a4af.png"><br />
 figure 2 - Age of Customers Histogram
 </p>
 
 Another observation about the reward members is that most became a member in 2018 (see figure 3).
 
 <p align="center">
-<img width="411" alt="figure 3" src="https://user-images.githubusercontent.com/78283026/220494293-e4ea6b39-8cfe-4262-abd6-2f5ffff41372.png"></br>
+<img width="411" alt="figure 3" src="https://user-images.githubusercontent.com/78283026/220494293-e4ea6b39-8cfe-4262-abd6-2f5ffff41372.png"><br />
 figure 3 - Date of Membership Histogram
 </p>
 
 More reward members are men vs. women (see figure 4).
 
 <p align="center">
-<img width="418" alt="figure 4" src="https://user-images.githubusercontent.com/78283026/220494432-f493deaa-b1a2-496b-9f4d-af02f989ac46.png"></br>
+<img width="418" alt="figure 4" src="https://user-images.githubusercontent.com/78283026/220494432-f493deaa-b1a2-496b-9f4d-af02f989ac46.png"><br />
 </p>
 
 Finally, most reward members earn less than $80,000 per year (see figure 5).
 
 <p align="center">
-<img width="418" alt="figure 5" src="https://user-images.githubusercontent.com/78283026/220494505-574be7f8-31d4-4487-a51a-7271ad88ed2b.png"></br>
+<img width="418" alt="figure 5" src="https://user-images.githubusercontent.com/78283026/220494505-574be7f8-31d4-4487-a51a-7271ad88ed2b.png"><br />
 figure 5 - Income Histogram
 </p>
 
 The last data set to explore is the transaction dataset. This dataset is an event log and tracks transactions, offers received, offers viewed, and offers completed. A majority of events in this log are transactions (see figure 6). 
 
 <p align="center">
-<img width="428" alt="figure 6" src="https://user-images.githubusercontent.com/78283026/220494740-aea67277-9e0d-4735-a2b9-3647998f9c82.png"></br>
+<img width="428" alt="figure 6" src="https://user-images.githubusercontent.com/78283026/220494740-aea67277-9e0d-4735-a2b9-3647998f9c82.png"><br />
 figure 6 - Event Distribution
 </p>
 
@@ -61,21 +61,21 @@ Before I could build my model, I needed to create a dataset where each record sh
 I started my data preprocessing with the portfolio dataset. Within the portfolio dataset, there is a column entitled channels. Each row within this column contains a list of the channels that each promo is advertised on. These channels include web, email, mobile and social. Since lists cannot be interpreted by models, I created a column for each of the channels and used a binary indicator to indicate if the promo was promoted on that channel (see figure 7). 
 
 <p align="center">
-<img width="428" alt="figure 7" src="https://user-images.githubusercontent.com/78283026/220495939-2b6e1f14-bc6b-4ebb-a547-56f58f670b19.png"></br>
+<img width="428" alt="figure 7" src="https://user-images.githubusercontent.com/78283026/220495939-2b6e1f14-bc6b-4ebb-a547-56f58f670b19.png"><br />
 figure 7 - channels transformation
 </p>
 
 My next step was to transform the offter_type (bogo = 0, informational = 1, or discount = 2) from a string variable to an integer variable (see figure 8).
 
 <p align="center">
-<img width="684" alt="figure 8" src="https://user-images.githubusercontent.com/78283026/220496244-e4887e3c-7dec-4e02-a1a5-c2779dbf2500.png"></br>
+<img width="684" alt="figure 8" src="https://user-images.githubusercontent.com/78283026/220496244-e4887e3c-7dec-4e02-a1a5-c2779dbf2500.png"><br />
 figure 8 - ofter_type transformation
 </p>
 
 Once I had completed the preprocessing of the portfolio dataset, I started transforming the transcript dataset. I separated the transcript dataset into four different datasets based on event type (transaction, offer received, offer viewed, and offer completed). Each of the new datasets contained a value column. This column contained a dictionary of data points associated with the event. For transaction event types, it contained the amount spent on the transaction. The datapoint is used to create a new dataframe containing each reward member's average transaction amount. For the offer received and the offer viewed events, the value column contained the offer_id of the promo which would be used to identify which offer the reward member received from the portfolio dataset. Finally, the value column for the offer completed events contain the offer_id, a datapoint which can be used to connect it to the portfolio dataset, and the reward amount for completing the promotion. Once the dictionary datapoint for each event type has been broken out into individual columns. The event type data frames are merged into a dataframe called promos resulting in the dataframe below (see figure 9).
 
 <p align="center">
-<img width="824" alt="figure 9" src="https://user-images.githubusercontent.com/78283026/220497009-1a82572c-9930-4ef8-adb0-1684258fced7.png"></br>
+<img width="824" alt="figure 9" src="https://user-images.githubusercontent.com/78283026/220497009-1a82572c-9930-4ef8-adb0-1684258fced7.png"><br />
 figure 9 - promo dataframe
 </p>
 
@@ -100,7 +100,7 @@ The decision tree model I was still able to glean some insight by taking a deepe
 For example, the average transaction amount for reward members was $16.02, and the dataset contains numerous outliers above the third quartile range with the max avg transaction over $400 (see figure 10).
 
 <p align="center">
-<img width="487" alt="figure 10" src="https://user-images.githubusercontent.com/78283026/220497812-cd3ad420-ec93-4df6-8e1f-780af6cf0619.png"></br>
+<img width="487" alt="figure 10" src="https://user-images.githubusercontent.com/78283026/220497812-cd3ad420-ec93-4df6-8e1f-780af6cf0619.png"><br />
 figure 10 - avg transactions boxplot & mean
 </p>
 
