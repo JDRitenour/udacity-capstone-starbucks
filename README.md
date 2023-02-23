@@ -83,11 +83,14 @@ The next step is to merge the profile dataset, the portfolio dataset, and the ne
 
 The last step, before the model can be created, is to create a column that indicates if the promo was successful called promo_worked. For the purpose of this analysis, a promo is considered to have “worked” if an offer is viewed, completed, and the offer had a difficulty (how much needed to be spent to receive the reward) that was greater than the members average transaction amount.
 
-For the model, I decided to run a basic decision tree classifier from the scikit-learn. Although I did try running the model with cross validation, it did not change the results. Therefore, I removed the cross-validation from the model to improve processing time. After fitting my model, I used a test subset of my data to gauge the models performance. The model performed with an accuracy score of 1 (i.e. 100%) when its predictions were compared to the test data.
+I divided my data into two datasets. A training set and a testing set. This allowed me to train my models on 80% of the data and reserve 20% of the test to test the models predictions. 
+
+For the model, I decided to run a basic decision tree classifier from the scikit-learn. I used utilzied cross validation and tuning parameters to determine the optimal max depth of the decision tree. After fitting my model, I used a test subset of my data to gauge the models performance. The model performed with an accuracy score of 1 (i.e. 100%) when its predictions were compared to the test data.
 
 ### Results
+The basic decision tree model perfomred with an accuracy score of 1. However, accuracy is not the best metric to evaluate this model. This is because the test dataset contain more instance where the promo did not work versus did work (18224 vs. 2315). Due to this disparity, F1 score is a better metric than accurary since F1 score uses precision and recall to accomodate for unbalanced options. The F1 score for this model was also 1. This means that we are able to accurately predict when a promo would get a reward member to spend more than their average transaction. 
 
-An accuracy score metric of 1 suggests that the model is overfitted and therefore not reliable. However, I was still able to glean some insight by taking a deeper dive into the records where it was determined that the promo was successful in getting the member to spend more than they do on average.
+The decision tree model I was still able to glean some insight by taking a deeper dive into the records where it was determined that the promo was successful in getting the member to spend more than they do on average.
 
 For example, the average transaction amount for reward members was $16.02, and the dataset contains numerous outliers above the third quartile range with the max avg transaction over $400 (see figure 10).
 
@@ -99,14 +102,14 @@ figure 10 - avg transactions boxplot & mean
 When the dataset is filtered for only records where the promo was successful, however, the average transaction amount drops to $6.18 with the max average transaction being just $19.98 (see figure 11).
 
 <p align="center">
-<img width="502" alt="figure 11" src="https://user-images.githubusercontent.com/78283026/220498481-e1d33ff1-476d-4340-a52d-e598123dfbcb.png"></br>
+<img width="502" alt="figure 11" src="https://user-images.githubusercontent.com/78283026/220498481-e1d33ff1-476d-4340-a52d-e598123dfbcb.png"><br />
 figure 11 - promo-worked mean and avg transaction histogram
 </p>
 
 The difference in the mean of the average transactions indicates that a promo is more effective on consumers who on average spend less. This is further supported when looking at the distribution of difficulty (how much needed to be spent in order to complete the offer) with most being willing to spend $10 or less but only a small portion spending $20 to claim a reward (see figure 12).
 
 <p align="center">
-<img width="600" alt="figure 12" src="https://user-images.githubusercontent.com/78283026/220498618-a82f6a81-b3fe-4e9c-9003-2d4aecfc54f5.png"></br>
+<img width="600" alt="figure 12" src="https://user-images.githubusercontent.com/78283026/220498618-a82f6a81-b3fe-4e9c-9003-2d4aecfc54f5.png"><br />
 figure 12 - difficulty distribution
 </p>
 
@@ -117,3 +120,11 @@ When taken together, it becomes clear that members who on average spent less per
 In the end, we were able to pull out characteristics from these dataset to determine if a promotional offer is likely to sway a reward member into spending more than they typically do on average. Promotional offers are most effective on members who average spending less than $10 per transaction.
 
 Further enhancements to this analysis can be made in further research efforts. For example, further preprocessing of the data prior to building the model may be required to compensate for the overfitting seen in this experiment. Also, other models can be introduced to see if they perform better than the decision tree model used in this experiment.
+
+### References
+
+"Brown Starbucks Paper on Gray Wooden Surface". Engin Akyurt. https://www.pexels.com/photo/brown-starbucks-paper-on-gray-wooden-surface-1435750/
+
+N B, Harikrishnan. "Confusion Matrix, Accuracy, Precision, Recall, F1 Score". https://medium.com/analytics-vidhya/confusion-matrix-accuracy-precision-recall-f1-score-ade299cf63cd
+
+"Starbucks Capstone Challenge". Starbucks & Udacity. https://www.udacity.com/
